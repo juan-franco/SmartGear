@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="es.cea.simulator"
+    version="0.1.0-SNAPSHOT">
+    
+  <name>CEASimulator</name>
+        <description>
+        Simulator communication plugin provides the communication layer with the simulator, allowing developers to request and receive simulator data transparently for different platforms
+        </description>
+    <author>Imatia Innovation S.L.</author>
+
+    <engines>
+       <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    
+    
+    <keywords>cea,car,simulator</keywords>
+    
+    <asset src="www/js/ceasimulator.js" target="js/ceasimulator.js" />
+    <asset src="www/js/corecar.js" target="js/corecar.js" />
+    <asset src="www/js/corecarsignals.js" target="js/corecarsignals.js" />
+    <asset src="www/js/corecarhmi.js" target="js/corecarhmi.js" />
+
+	<dependency id="es.cea.common" url="https://challengegit:dc41d4f28a08git@cea.altia.es/gitchallenge/CEAChallengeCommPlugin.git/" commit="master" subdir="." />
+	 
+    <platform name="android">
+      
+        <source-file src="lib/android/CEAChallengeCarSimulatorPlugin.jar" target-dir="libs" />
+        <source-file src="lib/android/simulator.properties" target-dir="assets" />
+       
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CEASimulator">
+                <param name="android-package" value="es.cea.simulator.CEASimulator" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+    </platform>
+    
+    <platform name="ios">
+        <header-file src="lib/ios/CEACarSimulator.h"/>
+        <source-file src="lib/ios/libCEAChallengeCarSimulator.a" framework="true"/>
+        <resource-file src="lib/ios/simulator.plist"/>
+       
+        <config-file target="config.xml" parent="/*">
+          <feature name="CEASimulator">
+            <param name="ios-package" value="CEACarSimulator"/>
+            <param name="onload" value="true" />
+          </feature>
+        </config-file>
+    </platform>
+ 	
+</plugin>

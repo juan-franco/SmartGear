@@ -1,0 +1,180 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>SmartGear - Settings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="smartphone/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="js/cordova.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.js"></script>
+<script type="text/javascript" src="smartphone/js/login.js"></script>
+<script type="text/javascript" src="smartphone/js/Chart.js"></script>
+ <script type="text/javascript" src="smartphone/js/jquery.easing.js"></script>
+ <script type="text/javascript" src="smartphone/js/jquery.ulslide.js"></script>
+ <!----Calender -------->
+  <link rel="stylesheet" href="smartphone/css/clndr.css" type="text/css" />
+  <script src="smartphone/js/underscore-min.js"></script>
+  <script src= "smartphone/js/moment-2.2.1.js"></script>
+  <script src="smartphone/js/clndr.js"></script>
+  <script src="smartphone/js/site.js"></script>
+  <!----End Calender -------->
+  <link type="text/css" href="smartphone/css/mmenu.css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="smartphone/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript">
+		var section = 'settings';
+		$(function() {					
+			display();
+		});
+		function display(block){
+			(block == null) ? block = section : section = block;
+			console.debug("(Re)loading: "+block);		
+			$(".content").hide();
+			$("#"+block).show();
+		}
+	</script>
+<link href="css/edited.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>			       
+    <div class="wrap">	 
+		<div class="header">
+			<div class="header_top">
+	      	   	<div class="menu-ico">
+					<a href="index.html"></a>					
+				</div>					
+				<div class="profile_details">
+				    <div id="loginContainer">
+				        <a id="loginButton" href="profile.html"><span>Settings</span></a>   
+		            </div>				   	  	
+				</div>
+		 		<div class="clear"></div>				 
+			</div>
+		</div>	  					     
+	</div>	  				 
+	<div class="main">  
+	    <div class="wrap">  		 	
+            <div class="column_middle">
+				<div class="content" id="settings">
+					<div class="column_middle_grid1">
+						<div class="config_settings">
+							<div class="table3">
+								<h3 style="font-size:17px; color:#321c65; text-align: left;">SmartGear</h3>
+								<div class="row3">
+									<div class="cell3" style="text-align:left;"><p>Energy saving mode</p></div>
+									<div class="cell3">
+										<div class="onoffswitch">
+											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch1" checked>
+												<label class="onoffswitch-label" for="myonoffswitch1">
+													<span class="onoffswitch-inner">
+														<span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+														<span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+													</span>
+											</label>
+										</div>
+									</div>
+								</div>
+								<hr style="color: #321c65; width:145%;" />
+								<div class="row3">
+									<div class="cell3" style="text-align:left;"><p>Access to the location</p></div>
+									<div class="cell3">
+										<div class="onoffswitch">
+											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" checked>
+												<label class="onoffswitch-label" for="myonoffswitch2">
+													<span class="onoffswitch-inner">
+														<span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+														<span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+													</span>
+											</label>
+										</div>
+									</div>
+								</div>
+								<hr style="color: #321c65; width:145%; height:2px" />
+								<h3 style="font-size:17px; color:#321c65; text-align: left;">Notifications</h3>
+								<div class="row3">
+									<div class="cell3" style="text-align:left;"><p>Popup notification</p></div>
+									<div class="cell3">
+										<div class="onoffswitch">
+											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" checked>
+												<label class="onoffswitch-label" for="myonoffswitch3">
+													<span class="onoffswitch-inner">
+														<span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+														<span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+													</span>
+											</label>
+										</div>
+									</div>
+								</div>
+								<hr style="color: #321c65; width:145%;" />
+								<div class="row3">
+									<div class="cell3" style="text-align:left;"><p>SMS notification</p></div>
+									<div class="cell3">
+										<div class="onoffswitch">
+											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" checked>
+												<label class="onoffswitch-label" for="myonoffswitch4">
+													<span class="onoffswitch-inner">
+														<span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+														<span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+													</span>
+											</label>
+										</div>
+									</div>
+								</div>
+								<hr style="color: #321c65; width:145%;" />
+								<div class="row3">
+									<div class="cell3" style="text-align:left;"><p>E-mail notification</p></div>
+									<div class="cell3">
+										<div class="onoffswitch">
+											<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch5" checked>
+												<label class="onoffswitch-label" for="myonoffswitch5">
+													<span class="onoffswitch-inner">
+														<span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+														<span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+													</span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input type="submit" class="buttonShadow" onclick="display('about');" value="About" style="width:90%; margin-left:5%; background:#9888b6; background-image:url(smartphone/images/4_Settings/action_forward_icon.png); background-repeat: no-repeat; background-position: right center;">
+				</div>
+				<div class="clear"></div>
+				<div class="content" id="about">
+					<div class="column_right_grid">
+						<div class="">	
+							<img src="smartphone/images/5_About Screen/logoSG_about.png" alt="" class="imgcenter">
+							<div class="copy-right">
+								<p style="color:#321c65;">© 2014 SmartGear / Version: 0.1.<script>
+									day = document.lastModified.split("/");
+									document.write(day[1]);</script>
+								</p>
+							</div>
+							<div class="settings_about">
+								<p style="padding-bottom:10px; font-size:16px; margin-left:20%">Authors</p>
+								<a href="https://www.linkedin.com/in/juanfrancorosa">
+									<input class="linkedin" class="red_button" value="Juan Franco Rosa" style="text-align:left; background-image:url(smartphone/images/4_Settings/logo_linkedin.png); background-repeat: no-repeat; background-position: right center;">
+								</a>
+								<a href="https://www.linkedin.com/in/alexpazdom">
+									<input class="linkedin" class="red_button" value="Alex Paz Domínguez" style="text-align:left; background-image:url(smartphone/images/4_Settings/logo_linkedin.png); background-repeat: no-repeat; background-position: right center;">
+								</a>
+							</div>
+							<form>
+								<input type="submit" class="buttonShadow" value="Back" onclick="display('profile');">
+							</form>
+						</div>
+				   </div>				
+				</div>
+			<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+<footer></footer>
+</body>
+</html>
+

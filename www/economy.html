@@ -1,0 +1,592 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>SmartGear - EcoCar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="smartphone/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.easing.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.ulslide.js"></script>
+<!----Menus -------->
+<link type="text/css" href="smartphone/css/mmenu.css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="smartphone/js/jquery.mmenu.min.js"></script>
+<!----CEA & MAPS -------->
+<script type="text/javascript" src="js/ceasimulator.js"></script>
+<script type="text/javascript" src="js/corecar.js"></script>
+<script type="text/javascript" src="js/corecarsignals.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/economy.js"></script>
+<script type="text/javascript">	
+		var section = 'economy';
+		
+		$(function() {
+			$('nav#menu').mmenu();
+			display();
+			//init();	
+		});
+		
+		$(document).ready(function(){
+			document.addEventListener("deviceready", function() {		
+				init();				
+			}, false);
+		});		
+		
+		function init(){
+			firstTime();					// Check if it is the first time
+			initTips();						// Checks pending tips
+			initAchievement(array_badges);	// Check the percentage in the progress bar and the opacity badges 
+			initScores();					// Checks Scores
+			initLeaderboard();				// Checks Leaderboards
+			
+			// Checking de Engine Status
+			console.info("Checking Engine Status...");
+			getSimulatorValue("CEA.VehicleData.Engine.EngineStatus");
+			getSimulatorValue("CEA.VehicleData.Maintenance.Mileage");
+			getSimulatorValue("CEA.VehicleData.Maintenance.MaintenanceExceed");
+			getSimulatorValue("CEA.VehicleData.Engine.FuelLowAlertOn");
+			getSimulatorValue("CEA.VehicleData.Configuration.Brand");
+		};		
+		
+		function display(block){
+			(block == null) ? block = section : section = block;
+			console.debug("(Re)loading: "+block);
+			$(".content").hide();
+			$("#"+block).show();
+			if (block == 'x') {								
+			}
+		};
+		
+</script>
+
+<link href="css/edited.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+
+<body>			
+    <div class="wrap">	 
+		<div class="header">
+			<div class="header_top">
+	      	   	<div class="menu-ico">
+					<a href="#menu"></a>					
+				</div>			
+				<div class="profile_details">
+				    <div id="loginContainer">
+				        <a id="loginButton"><span>EcoCar</span></a>
+		            </div>
+				    <div class="profile_img">	
+						<a href="profile.html"><img src="smartphone/images/profile_img39x39.png" alt="" />	</a>
+				    </div>
+					<div class="profile_img">	
+						<a href="settings.html"><img src="smartphone/images/icons/icons_menubar/settings_icon.png" alt="" /></a>
+				    </div>
+				    <div class="clear"></div>		  	
+				</div>
+		 		<div class="clear"></div>				 
+			</div>
+		</div>	  					     
+	</div>	  				 
+	<div class="main">  
+	    <div class="wrap">
+			<div class="table" style="width:90%;">
+				<div class="row">
+					<div class="cell_centered">
+						<input onclick="startGaming()" type="submit" class="buttonShadow" value="Start">
+					</div>
+					<div class="cell_centered">
+						<input onclick="" class="circleNoBlink" id="lamp" value="Off"><span class="circleBack"></span>
+					</div>
+					<div class="cell_centered">
+						<input onclick="stopGaming()" type="submit" class="buttonShadow" value="Stop">
+					</div>
+				</div>
+			</div>
+            <div class="column_middle">
+				<div class="content" id="economy">
+					<div class="column_right_grid slide_events">
+						<h3 style="background:#dc002e">SUMMARY
+							<a href="#" id="slide_prev"><img src="smartphone/images/arrow-left.png" alt="" /></a> 
+							<a href="#" id="slide_next"><img src="smartphone/images/arrow-right.png" alt="" /></a>
+						</h3>
+							<ul id="slides" class="slide_events">					            
+								<li><span>TIPS</span>
+									<p>Tips and advice on driving safety and vehicle maintenance
+										<br/><br/>
+										<input onclick="display('tips');" type="submit" class="buttonShadow" id="tips_summary" value="GO">
+										<br/><br/>
+										<ul style="text-align:center; font-size:20px; vertical-align:middle">
+											<li id="tips_value" style="color:#840d72; font-weight: bold; padding-bottom:5px;">...</li>
+											<br>
+											<img src="smartphone/images/icons/icons_ecocar/tips_icon.png" alt="" />
+										</ul>
+										<br/><br/>
+									</p>
+								</li>
+								<li><span>SCORE</span>
+									<p>Score achieved by the driver on different routes
+										<br/><br/>
+										<input onclick="display('score');" type="submit" class="buttonShadow" id="tips_summary" value="GO">
+										<br/><br/>
+										<p style="padding-bottom:5px;">Your highscores</p>
+										<div class="table2">
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72;border:solid 1px #61428d">Route 1</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="sc1">...</div></div>
+											</div>	
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72; border:solid 1px #61428d">Route 2</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="sc2">...</div></div>
+											</div>
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72; border:solid 1px #61428d">Route 3</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="sc3">...</div></div>
+											</div>
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72; border:solid 1px #61428d">Route 4</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="sc4">...</div></div>
+											</div>	
+										</div>
+									</p>
+								</li>
+								<li><span>LEADERBOARD</span>
+									<p>Four different scoring tables corresponding to each of the routes
+										<br/><br/>
+										<input onclick="display('leaderboards');" type="submit" class="buttonShadow" id="tips_summary" value="GO">
+										<br/><br/>
+										<p style="padding-bottom:5px;">Your position</p>
+										<div class="table2">
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72;border:solid 1px #61428d">Route 1</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="lb1">...</div></div>
+											</div>	
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72; border:solid 1px #61428d">Route 2</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="lb2">...</div></div>
+											</div>
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72; border:solid 1px #61428d">Route 3</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="lb3">...</div></div>
+											</div>
+											<div class="row2">
+												<div class="cell2" style="text-align:center; background:#840d72; border:solid 1px #61428d">Route 4</div>
+												<div class="cell2" style="text-align:center; background:#9a4d89; border:solid 1px #61428d"><div id="lb4">...</div></div>
+											</div>	
+										</div>
+									</p>
+								</li>
+								<li><span>ACHIEVEMENTS</span>
+									<p>List all badges obtained to date and its explanation
+										<br/><br/>
+										<input onclick="display('achievements');" type="submit" class="buttonShadow" id="tips_summary" value="GO">
+										<br/><br/>
+										<ul style="text-align:center; font-size:20px; vertical-align:middle">
+											<li id="achv_value" style="color:#840d72; font-weight:bold; padding-bottom:5px;">...</li>
+											<br>
+											<img src="smartphone/images/icons/icons_ecocar/achievement_icon.png" alt="" />
+										</ul>
+										<br/><br/>
+									</p>
+								</li>
+							</ul>								 				
+						
+						<script type="text/javascript">
+							$(function() {						
+								$('#slides').ulslide({
+									   
+									effect: {
+										type: 'carousel', // slide or fade
+										axis: 'x',        // x, y
+										showCount:1
+									},
+									nextButton: '#slide_next',
+									prevButton: '#slide_prev',
+									duration: 800,
+									/*autoslide: 3000,*/
+									easing: 'easeOutBounce'
+								});
+							});
+						</script>
+					</div>
+				</div>
+				
+				<!-- WINDOW TIPS -->
+				<div class="content" id="tips">
+					<div class="weather">
+						<h3 style="background:#dc002e">Tips</h3>
+						<div class="temp_list">
+				      		<ul>
+								<li style="background:#840d72; font-weight:bold; text-decoration: underline;"><a href="#">ADVICES
+								<label style="text-decoration: underline;">Times</label>
+						  	    <li id="btip0"><a href="#" onclick="showTip('btip0')">Driving with low fuel
+						  		<label id="tip0" class="digits">0</label>
+						  		<li id="btip1"><a href="#" onclick="showTip('btip1')">Excessive speed
+						  		<label id="tip1" class="digits">0</i></label>
+						  		<li id="btip2"><a href="#" onclick="showTip('btip2')">Driving fast with the windows down
+						  		<label id="tip2" class="digits">0</label>
+								<li id="btip3"><a href="#" onclick="showTip('btip3')">Abrupt braking
+						  		<label id="tip3" class="digits">0</label>
+								<li id="btip4"><a href="#" onclick="showTip('btip4')">TIVtime despised
+						  		<label id="tip4" class="digits">0</label>
+								<li id="btip5"><a href="#" onclick="showTip('btip5')">Abrupt acceleration
+						  		<label id="tip5" class="digits">0</label>
+								<li id="btip6"><a href="#" onclick="showTip('btip6')">The indicator lamps are not used
+						  		<label id="tip6" class="digits">0</label>
+								<li id="btip7"><a href="#" onclick="showTip('btip7')">Exceed 2,000 rev. cold
+						  		<label id="tip7" class="digits">0</label>
+								<li id="btip8"><a href="#" onclick="showTip('btip8')">Excessive revolutions
+						  		<label id="tip8" class="digits">0</label>
+								<li id="btip9"><a href="#" onclick="showTip('btip9')">Incorrect current gear
+						  		<label id="tip9" class="digits">0</label>
+								<li id="btip10"><a href="#" onclick="showTip('btip10')">Dangerous maneuver
+						  		<label id="tip10" class="digits">0</label>
+								<li id="btip11"><a href="#" onclick="showTip('btip11')">Abnormal right/left-hand crossing
+						  		<label id="tip11" class="digits">0</label>
+								<li id="btip12"><a href="#" onclick="showTip('btip12')">No maintenance
+						  		<label id="tip12" class="digits">0</label>
+								<li id="btip13"><a href="#" onclick="showTip('btip13')">Without Seat Belts
+						  		<label id="tip13" class="digits">0</label>
+								<li id="btip14"><a href="#" onclick="showTip('btip14')">Horn on
+						  		<label id="tip14" class="digits">0</label>
+								<div class="clear"></div></a></li>
+				    		</ul>
+						</div>
+						<div id="noticeTip" class="notifyTips" onclick=document.getElementById("noticeTip").style.zIndex="-1";>
+							<img style="padding-top:5px;" src="smartphone/images/icons/icons_ecocar/tips_icon.png" alt="" class="imgcenter"/>
+							<p style="padding:5px 5px 0px 5px;" id="textTip">...</p>
+						</div>
+					</div>	       
+				</div>
+				
+				<!-- WINDOW SCORE -->
+				<div class="content" id="score">
+					<img src="smartphone/images/7_Score/logoSG_score.png" alt="" class="imgcenter"/>
+					<div class="mmenu_base">
+						<div class="mmenu_base_two" style="height:2.5em;">
+							<p style="font-size:12px; text-align:center">Select route</p>
+							<div class="table_sc" style="font-size:12px;">
+								<div class="cell_sc">
+									<div class="button-bar" id="bscore0" onclick="showScore('bscore0')">Route 1</div>
+								</div>	
+								<div class="cell_sc">
+									<div class="button-bar" id="bscore3" onclick="showScore('bscore3')">Route 2</div>
+								</div>	
+								<div class="cell_sc">
+									<div class="button-bar" id="bscore6" onclick="showScore('bscore6')">Route 3</div>
+								</div>	
+								<div class="cell_sc">
+									<div class="button-bar" id="bscore9" onclick="showScore('bscore9')">Route 4</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+					<div class="mmenu_base" style="background:none; padding-top:0px;">
+						<div class="mmenu_base_two" style="border: solid 2px #9888b6; margin-left: 0.5em; padding: 2% 0% 0.5em 0%;">
+							<div class="table_sc" style="font-size:14px;">
+								<div class="row">
+									<div class="cell_sc" style="border-bottom: 1px solid #9888b6; border-right: 1px solid #9888b6;"><span style="margin-right:2px;">Total points</span></div>
+									<div class="cell_sc" style="border-bottom: 1px solid #9888b6;"><span style="margin-left:2px; margin-right:2px;">Total errors</span></div>
+									<div class="cell_sc" style="border-bottom: 1px solid #9888b6; border-left: 1px solid #9888b6;"><span style="margin-left:2px;">Total distance</span></div>
+								</div>
+								<div class="row">
+									<div class="cell_sc">
+										<img src="smartphone/images/7_Score/icon_check.png" alt=""/>
+										<span id="points_sc" style="text-shadow: 2px 2px #321c65; font-size: 30px;">...</span>
+									</div>
+									<div class="cell_sc">
+										<img src="smartphone/images/7_Score/icon_error.png" alt=""/>
+										<span id="errors_sc" style="text-shadow: 2px 2px #321c65; font-size: 30px;">...</span>
+									</div>
+									<div class="cell_sc">
+										<img src="smartphone/images/7_Score/icon_road.png" alt=""/>
+										<span id="roads_sc" style="text-shadow: 2px 2px #321c65; font-size: 30px;">...</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<p style="font-size:14px; padding-top:5px;">The table is updated when route ends</p>
+						<div id="layout3" style="height:initial; margin-top: 10px;">
+							<div class="table_sc2" id="tabsc" style="font-size:14px; width: 100%;"></div>
+						</div>
+					</div>
+				</div>						
+						
+				<!-- WINDOW LEADERBOARDS -->
+				<div class="content" id="leaderboards">
+					<img src="smartphone/images/8_Leaderboard/logoSG_leaderboard.png" alt="" class="imgcenter"/>
+					<div class="mmenu_base">
+						<div class="mmenu_base_two" style="height:2.5em;">
+							<p style="font-size:12px; text-align:center">Select route</p>
+							<div class="table_sc" style="font-size:12px;">
+								<div class="cell_sc">
+									<div class="button-bar" id="bleaderboard0" onclick="showLeaderboard('bleaderboard0')">Route 1</div>
+								</div>	
+								<div class="cell_sc">
+									<div class="button-bar" id="bleaderboard1" onclick="showLeaderboard('bleaderboard1')">Route 2</div>
+								</div>	
+								<div class="cell_sc">
+									<div class="button-bar" id="bleaderboard2" onclick="showLeaderboard('bleaderboard2')">Route 3</div>
+								</div>	
+								<div class="cell_sc">
+									<div class="button-bar" id="bleaderboard3" onclick="showLeaderboard('bleaderboard3')">Route 4</div>
+								</div>	
+							</div>
+						</div>
+						<p style="font-size:14px; padding-top:5px;">The table is updated when route ends</p>
+						<div id="layout3" style="height:initial; margin-top: 10px;">
+							<div class="table_lb" id="tablb" style="font-size:14px; width:100%;"></div>
+						</div>
+					</div>
+								                 
+				</div>
+
+				<!-- WINDOW ACHIEVEMENTS -->
+				<div class="content" id="achievements">
+					<img src="smartphone/images/6_Achievements/logoSG_achievements.png" alt="" class="imgcenter">
+					<div class="mmenu_base">
+						<div class="mmenu_base_two">
+							<div class="progress-bar" style="width:100%; background: #b07fad">
+								<div class="progress-bar" style="width:0%" id="barprogress">
+									<span style="font-size:10px">Progress</span>
+								</div>
+							</div>
+							<p style="margin-top:5px; font-size:10px">
+								<span style="margin-right:60%">Badges earned...</span>
+								<span id="nbadges">...</span>
+							</p>
+						</div>
+					</div>
+					<div class="mmenu_base" style="background:none">
+						<div id="layout">
+							<div class="hgroup">
+								<div class="maincell">
+									<div class="hgroup">
+										<div class="cellgrid" id="badge0" onclick="showPanel('badge0')">
+											<img src="smartphone/images/badges/0_Generic/welcome.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge1" onclick="showPanel('badge1')">
+											<img src="smartphone/images/badges/0_Generic/buypeugeot.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge2" onclick="showPanel('badge2')">
+											<img src="smartphone/images/badges/0_Generic/buycitroen.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge3" onclick="showPanel('badge3')">
+											<img src="smartphone/images/badges/0_Generic/maintenance.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge4" onclick="showPanel('badge4')">
+											<img src="smartphone/images/badges/1_ Position LeaderBoard/first.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge5" onclick="showPanel('badge5')">
+											<img src="smartphone/images/badges/1_ Position LeaderBoard/first4x1.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge6" onclick="showPanel('badge6')">
+											<img src="smartphone/images/badges/1_ Position LeaderBoard/first4x2.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge7" onclick="showPanel('badge7')">
+											<img src="smartphone/images/badges/1_ Position LeaderBoard/second.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge8" onclick="showPanel('badge8')">
+											<img src="smartphone/images/badges/1_ Position LeaderBoard/third.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge9" onclick="showPanel('badge9')">
+											<img src="smartphone/images/badges/2_Driver Year/year.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge10" onclick="showPanel('badge10')">
+											<img src="smartphone/images/badges/2_Driver Year/year_r1.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge11" onclick="showPanel('badge11')">
+											<img src="smartphone/images/badges/2_Driver Year/year_r2.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge12" onclick="showPanel('badge12')">
+											<img src="smartphone/images/badges/2_Driver Year/year_r3.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge13" onclick="showPanel('badge13')">
+											<img src="smartphone/images/badges/2_Driver Year/year_r4.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge14" onclick="showPanel('badge14')"">
+											<img src="smartphone/images/badges/3_Points Route/Route1_60.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge15" onclick="showPanel('badge15')">
+											<img src="smartphone/images/badges/3_Points Route/Route1_60x3.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge16" onclick="showPanel('badge16')">
+											<img src="smartphone/images/badges/3_Points Route/Route1_60x5.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge17" onclick="showPanel('badge17')">
+											<img src="smartphone/images/badges/3_Points Route/Route2_120.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge18" onclick="showPanel('badge18')">
+											<img src="smartphone/images/badges/3_Points Route/Route2_120x3.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge19" onclick="showPanel('badge19')">
+											<img src="smartphone/images/badges/3_Points Route/Route2_120x5.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge20" onclick="showPanel('badge20')">
+											<img src="smartphone/images/badges/3_Points Route/Route3_240.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge21" onclick="showPanel('badge21')">
+											<img src="smartphone/images/badges/3_Points Route/Route3_240x3.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge22" onclick="showPanel('badge22')">
+											<img src="smartphone/images/badges/3_Points Route/Route3_240x5.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge23" onclick="showPanel('badge23')">
+											<img src="smartphone/images/badges/4_Points/250sp.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge24" onclick="showPanel('badge24')">
+											<img src="smartphone/images/badges/4_Points/500sp.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge25" onclick="showPanel('badge25')">
+											<img src="smartphone/images/badges/4_Points/1000sp.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge26" onclick="showPanel('badge26')">
+											<img src="smartphone/images/badges/4_Points/10000sp.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge27" onclick="showPanel('badge27')">
+											<img src="smartphone/images/badges/5_KM/10km.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge28" onclick="showPanel('badge28')">
+											<img src="smartphone/images/badges/5_KM/100km.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge29" onclick="showPanel('badge29')">
+											<img src="smartphone/images/badges/5_KM/500km.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge30" onclick="showPanel('badge30')">
+											<img src="smartphone/images/badges/5_KM/1000km.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge31" onclick="showPanel('badge31')">
+											<img src="smartphone/images/badges/6_Trophy Beginner/begginer1.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge32" onclick="showPanel('badge32')">
+											<img src="smartphone/images/badges/6_Trophy Beginner/begginer2.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge33" onclick="showPanel('badge33')">
+											<img src="smartphone/images/badges/6_Trophy Beginner/begginer3.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge34" onclick="showPanel('badge34')">
+											<img src="smartphone/images/badges/6_Trophy Beginner/begginer4.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge35" onclick="showPanel('badge35')">
+											<img src="smartphone/images/badges/7_Trophy Promise/promise1.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge36" onclick="showPanel('badge36')">
+											<img src="smartphone/images/badges/7_Trophy Promise/promise2.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge37" onclick="showPanel('badge37')">
+											<img src="smartphone/images/badges/7_Trophy Promise/promise3.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge38" onclick="showPanel('badge38')">
+											<img src="smartphone/images/badges/7_Trophy Promise/promise4.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge39" onclick="showPanel('badge39')">
+											<img src="smartphone/images/badges/8_Trophy Experienced/experienced1.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge40" onclick="showPanel('badge40')">
+											<img src="smartphone/images/badges/8_Trophy Experienced/experienced2.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge41" onclick="showPanel('badge41')">
+											<img src="smartphone/images/badges/8_Trophy Experienced/experienced3.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge42" onclick="showPanel('badge42')">
+											<img src="smartphone/images/badges/8_Trophy Experienced/experienced4.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge43" onclick="showPanel('badge43')">
+											<img src="smartphone/images/badges/9_Trophy Expert/expert1.png" alt="" />
+										</div>
+									</div>
+									<div class="hgroup">
+										<div class="cellgrid" id="badge44" onclick="showPanel('badge44')">
+											<img src="smartphone/images/badges/9_Trophy Expert/expert2.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge45" onclick="showPanel('badge45')">
+											<img src="smartphone/images/badges/9_Trophy Expert/expert3.png" alt="" />
+										</div>
+										<div class="cellgrid" id="badge46" onclick="showPanel('badge46')">
+											<img src="smartphone/images/badges/9_Trophy Expert/expert4.png" alt="" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="layout2">
+						<div onclick="hidePanel()">
+							<div id="panelbadge" style="position:absolute; width:100%; text-align: center;">
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>			
+			</div>
+		</div>
+	</div>
+	
+	<div>
+		<input class="get" id="CEA.VehicleData.Engine.EngineStatus" 						onchange="checkErrors('EngineStatus')" 					value="" type="hidden">	
+		<input class="get" id="CEA.VehicleData.Engine.Revolutions" 							onchange="checkErrors('Revolutions')" 					value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Engine.FuelLowAlertOn" 						onchange="checkErrors('FuelLowAlertOn')" 				value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Speed.InstantSpeed" 							onchange="checkErrors('InstantSpeed')" 					value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.ThrottlePedalLevel" 					onchange="checkErrors('ThrottlePedalLevel')" 			value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.BreakPedal" 							onchange="checkErrors('BreakPedal')" 					value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.BrakePedalPressure" 					onchange="checkErrors('BrakePedalPressure')" 			value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.SteeringWheelPosition" 				onchange="checkErrors('SteeringWheelPosition')" 		value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.SteeringWheelRotationSpeed" 			onchange="checkErrors('SteeringWheelRotationSpeed')" 	value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.LampsTurnIndicatorLeftActivated" 	onchange=""												value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.LampsTurnIndicatorRightActivated" 	onchange="" 											value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.CurrentGear" 						onchange="checkErrors('CurrentGear')" 					value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.RecommendedGearArrow" 				onchange="checkErrors('RecommendedGearArrow')" 			value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Driving.HornActivated" 						onchange="checkErrors('HornActivated')" 				value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.ExtEnvironment.Night" 						onchange="checkErrors('Night')" 						value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Bodywork.WiperSpeed" 						onchange="checkErrors('WiperSpeed')" 					value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Bodywork.FrontLeftWindowPosition" 			onchange="checkErrors('FrontLeftWindowPosition')" 		value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Bodywork.FrontRightWindowPosition" 			onchange="checkErrors('FrontRightWindowPosition')" 		value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Bodywork.RearLeftWindowPosition" 			onchange="checkErrors('RearLeftWindowPosition')" 		value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Bodywork.RearRightWindowPosition" 			onchange="checkErrors('RearRightWindowPosition')" 		value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Maintenance.MaintenanceExceed" 				onchange="checkErrors('MaintenanceExceed')" 			value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Maintenance.Mileage" 						onchange="checkErrors('Mileage')" 						value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Security.DriverBeltFastened" 				onchange="checkErrors('DriverBeltFastened')" 			value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.ADAS.LeftHandCrossing" 						onchange="checkErrors('LeftHandCrossing')" 				value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.ADAS.RightHandCrossing" 						onchange="checkErrors('RightHandCrossing')" 			value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.ADAS.TIVTime" 								onchange="checkErrors('TIVTime')" 						value="" type="hidden">
+		<input class="get" id="CEA.VehicleData.Configuration.Brand" 						onchange="" 											value="" type="hidden">
+	</div>
+	
+	<!-- ECOCAR MENU -->
+	<nav id="menu">
+		<ul>
+			<li style="background: #840d72;"><a href="#" onclick="display('economy');" ><i><img src="smartphone/images/icons/icons_ecocar/ecocar_icon_menu.png"></i> ECOCAR MENU</a></li>
+			<li><a href="index.html"><i><img src="smartphone/images/icons/home_icon.png"></i> Home</a></li>
+			<li><a href="#" onclick="display('tips');"><i><img src="smartphone/images/icons/icons_ecocar/tips_icon.png"></i> Tips <span id="ptips">0</span><div class="clear"></div></a></li>
+			<li><a href="#" onclick="display('score');"><i><img src="smartphone/images/icons/icons_ecocar/score_icon.png"></i> Score</div></a></li>
+			<li><a href="#" onclick="display('leaderboards');"><i><img src="smartphone/images/icons/icons_ecocar/leaderboard_icon.png"></i> Leaderboard</div></a></li>
+			<li><a href="#" onclick="display('achievements');"><i><img src="smartphone/images/icons/icons_ecocar/achievement_icon.png" alt="" /></i> Achievements</a></li>
+		</ul>
+	</nav>
+<footer></footer>	
+</body>
+</html>

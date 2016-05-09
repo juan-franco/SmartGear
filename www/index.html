@@ -1,0 +1,70 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>SmartGear</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="smartphone/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.js"></script>
+<link type="text/css" href="smartphone/css/mmenu.css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="smartphone/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript">
+		$(function() {
+			$('nav#menu').mmenu();
+			//window.localStorage.clear();
+			if (window.localStorage.getItem("p_init") == "true"){
+			} else {
+				window.localStorage.setItem("p_name", "Jennifer Lawrence");
+				window.localStorage.setItem("p_email", "yourname@mail.com");
+				window.localStorage.setItem("p_number", "+34 666 11 22 33");
+				window.localStorage.setItem("p_init", "true");
+			};			
+		});
+</script>
+<link href="css/edited.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>
+
+    <div class="wrap">	 
+		<div class="header">
+			<div class="header_top">				
+				<div id="loginContainer_front">
+					<h1 style="text-shadow: 0px 2px 2px #000;">SmartGear<h1>
+		        </div>	  	
+		 		<div class="clear"></div>				 
+			</div>
+		</div>	  					     
+	</div>	 
+	
+	<div class="adapt_button"> <a href="profile.html"><img src="smartphone/images/profile_img170x170.png" alt="" /></a> </div>
+	<div class="main">  
+	    <div class="wrap_front">  		 
+	        <div class="column_middle_front">
+				<div class="column_middle_grid_front">
+					<div class="articles_list_front">
+						<ul>
+							<li><a href="security.html"><img style="-webkit-box-shadow: 0px 5px 40px #321C3A;" src="smartphone/images/1_Main Screen/button_SEC.png" alt="" /></a></li>
+							<li><a href="economy.html"><img style="-webkit-box-shadow: 0px 5px 40px #321C3A;" src="smartphone/images/1_Main Screen/button_ECO.png" alt="" /></a></li>
+							<div class="clear"></div>	
+						</ul>
+					</div>
+				</div>		         
+    	    </div>    	   
+        <div class="clear"></div>
+		</div>
+    </div>
+	<footer>
+	<div class="copy-right" style="background-image:url(smartphone/images/4_Settings/logo_CEA.png); ">
+		<p>© 2014 SmartGear / Version: 0.1.27</p>
+	</div>
+	</footer>
+</body>
+</html>
+

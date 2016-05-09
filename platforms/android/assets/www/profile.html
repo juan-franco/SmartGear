@@ -1,0 +1,133 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>SmartGear - Profile</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link href="smartphone/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.easing.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.ulslide.js"></script>
+<link type="text/css" href="smartphone/css/mmenu.css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="smartphone/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript">
+		var section = 'profile';
+		var storage = window.localStorage;		
+
+		$(document).ready(function(){
+			document.addEventListener("deviceready", function() { init(); }, false);
+			init();
+			display();
+		});
+		
+		function init(){			
+		};
+		
+		function saveProfile(){
+			console.info("Saving profile");
+			var newname = document.getElementById("nameprofile").value;
+			var newmail = document.getElementById("numberprofile").value;
+			var newnumb = document.getElementById("emailprofile").value;			
+			storage.setItem("p_name", newname);
+			storage.setItem("p_email", newmail);
+			storage.setItem("p_number", newnumb);			
+			display('profile');
+		};
+		
+		
+		function display(block){
+			(block == null) ? block = section : section = block;
+			console.debug("(Re)loading: "+block);		
+			$(".content").hide();
+			$("#"+block).show();
+			if (block=='profile') {
+				document.getElementById("name").innerHTML = storage.getItem("p_name");
+				document.getElementById("email").innerHTML = storage.getItem("p_email");
+				document.getElementById("number").innerHTML = storage.getItem("p_number");
+			};
+			if (block=='modify') {
+				document.getElementById("nameprofile").value = storage.getItem("p_name");
+				document.getElementById("emailprofile").value = storage.getItem("p_email");
+				document.getElementById("numberprofile").value = storage.getItem("p_number");
+			};
+		}
+	</script>
+<link href="css/edited.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>			       
+    <div class="wrap">	 
+		<div class="header">
+			<div class="header_top">
+	      	   	<div class="menu-ico">
+					<a href="index.html"></a>					
+				</div>					
+				<div class="profile_details">
+				    <div id="loginContainer">
+				        <a id="loginButton" href="profile.html"><span>Profile</span></a>   
+		            </div>				   	  	
+				</div>
+		 		<div class="clear"></div>				 
+			</div>
+		</div>	  					     
+	</div>	  				 
+	<div class="main">  
+	    <div class="wrap">  		 	
+            <div class="column_middle">
+				<div class="content" id="profile">
+					<div class="column_middle_grid1">
+						<div class="profile_picture">
+							<a href=""><img src="smartphone/images/profile_img170x170.png" alt="" /></a>		         
+							<div class="profile_picture_name">
+								<h2 id="name">...</h2>
+								<div class="table"">
+									<div class="row">
+										<div class="cell" style="text-align:center;"><p id="email">...</p></div>
+									</div>
+									<div class="row">
+										<div class="cell" style="text-align:center;"><p id="number">...</p></div>
+									</div>
+								</div>
+							</div>
+							<input type="submit" class="buttonShadow" onclick="display('modify');" value="Modify">											
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="content" id="modify">
+					<div class="column_right_grid">
+						<div class="">
+							<h3 style="font-size: 16px; padding-top: 20px;">Edit your contact information</h3>
+							<form>
+								<span>
+									<i><img src="smartphone/images/3_Edit Profile/user_icon.png" alt="" /></i>
+									<input id="nameprofile" type="text" value="Enter your name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your name';}">
+								</span>			 	    
+								<span>
+									<i><img src="smartphone/images/3_Edit Profile/email_icon.png" alt="" /></i>
+									<input id="emailprofile" type="text" value="Enter your email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your email';}">
+								</span>	
+								<span>
+									<i><img src="smartphone/images/3_Edit Profile/phone_icon.png" alt="" /></i>
+									<input id="numberprofile" type="text" value="Enter your number" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your number';}">
+								</span>	
+								<input type="submit" class="buttonShadow" value="Cancel" onclick="display('profile');">
+								<input type="submit" class="buttonShadow" value="Accept" onclick="saveProfile();">
+							</form>
+						</div>
+				   </div>				
+				</div>
+			<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+<footer></footer>
+</body>
+</html>
+

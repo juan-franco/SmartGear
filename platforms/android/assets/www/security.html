@@ -1,0 +1,334 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<head>
+<title>SmartGear - Security</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script type="application/x-javascript"> 
+	addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); 	 	
+	function hideURLbar(){ window.scrollTo(0,1); } 	
+</script>
+<link href="smartphone/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.easing.js"></script>
+<script type="text/javascript" src="smartphone/js/jquery.ulslide.js"></script>
+<!----Menus -------->
+<link type="text/css" href="smartphone/css/mmenu.css" rel="stylesheet" media="all" />
+<script type="text/javascript" src="smartphone/js/jquery.mmenu.min.js"></script>
+<!----CEA & MAPS -------->
+<script type="text/javascript" src="js/ceasimulator.js"></script>
+<script type="text/javascript" src="js/corecar.js"></script>
+<script type="text/javascript" src="js/corecarsignals.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry"></script>
+<script type="text/javascript" src="js/googlemaps.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/security.js"></script>
+<script type="text/javascript">		
+		var section = 'security';
+
+		$(function() {
+			$('nav#menu').mmenu();
+			display();
+			//init();
+		});
+		
+		$(document).ready(function(){						
+			document.addEventListener("deviceready", function() { init(); }, false);
+			addEventListener("unload", function() { unLoad(); }, false); 
+		});		
+		
+		function init(){			
+			getGPSValue('CEA.VehicleData.Navigation.GPS.Current');		
+			checkTracking();
+			checkAntitheft();
+			checkLocation();
+			checkParking();
+		};
+		
+		function display(block){
+			if (block == 'security') {
+				checkTracking();
+				checkAntitheft();
+				checkLocation();
+				checkParking();	
+			};
+			(block == null) ? block = section : section = block;
+			console.debug("(Re)loading: "+block);			
+			$(".content").hide();
+			$("#"+block).show();
+			if (block == 'monitoring') {												
+				getGPSValue('CEA.VehicleData.Navigation.GPS.Current');
+				refresh(map_mon);
+				getCurrentInfo();				
+			};
+			if (block == 'anti-theft') {
+				getGPSValue('CEA.VehicleData.Navigation.GPS.Current');
+			};
+			if (block == 'location') {								
+				getGPSValue('CEA.VehicleData.Navigation.GPS.Current');
+				refresh(map_loc);
+				calcLocRoute();				
+			};
+			if (block == 'parking') {								
+				getGPSValue('CEA.VehicleData.Navigation.GPS.Current');
+			};
+		};		
+	</script>
+<link href="css/edited.css" rel="stylesheet" type="text/css" media="all"/>
+</head>
+<body>			       
+    <div class="wrap">	 
+		<div class="header">
+			<div class="header_top">
+	      	   	<div class="menu-ico">
+					<a href="#menu"></a>					
+				</div>					
+				<div class="profile_details">
+				    <div id="loginContainer">
+				        <a id="loginButton" onclick="display('security');"><span>Security</span></a>   
+		            </div>
+				    <div class="profile_img">	
+						<a href="profile.html"><img src="smartphone/images/profile_img39x39.png" alt="" />	</a>
+				    </div>	
+				    <div class="profile_img">	
+						<a href="#" onclick="display();"><img src="smartphone/images/icons/icons_menubar/refresh_icon.png" alt="" /></a>
+				    </div>		
+				    <div class="clear"></div>		  	
+				</div>
+		 		<div class="clear"></div>				 
+			</div>
+		</div>	  					     
+	</div>	  				 
+	<div class="main">  
+	    <div class="wrap">  		 	
+            <div class="column_middle">
+				<div class="content" id="security">
+					<div class="column_right_grid date_events">
+						<h3>SUMMARY</h3>
+						<br>
+						<div class="table">
+							<div class="row">
+								<div class="cell" style="text-align:right">Monitoring</div>
+								<div class="cell" style="text-align:center"><input onclick="display('monitoring');" type="submit" class="buttonShadow" id="monitoring_summary" value="..."></div>
+							</div>
+							<div class="row">
+								<div class="cell" style="text-align:right">Anti-theft</div>
+								<div class="cell" style="text-align:center"><input onclick="display('anti-theft');" type="submit" class="buttonShadow" id="antiTheft_summary"  value="..."></div>
+							</div>	
+							<div class="row">
+								<div class="cell" style="text-align:right">Location</div>
+								<div class="cell" style="text-align:center"><input onclick="display('location');" type="submit" class="buttonShadow" id="location_summary" value="..."></div>
+							</div>
+							<div class="row">
+								<div class="cell" style="text-align:right">Parking</div>
+								<div class="cell" style="text-align:center"><input onclick="display('parking');" type="submit" class="buttonShadow" id="parking_summary" value="..."></div>
+							</div>	
+						</div>
+					</div>		       
+				</div>
+				<div class="content" id="monitoring">					
+					<div class="column_grid date_events">
+						<h3>Monitoring</h3>
+						<div class="trip_list">
+							<ul id="trip_list">	
+								<div class="table" style="width:initial">
+									<li><a href="#">
+									<div class="row">
+										<div class="cell" id="date" style="font-size:x-small;">...</div>
+										<div class="cell" id="units">h&nbsp;</div>						
+										<div class="cell"><label class="fuel"><div class="get" id="CEA.VehicleData.Maintenance.Mileage">...</div></label></div>
+										<div class="cell" id="units">km&nbsp;</div>	
+										<div class="cell"><label class="fuel"><div class="get" id="CEA.VehicleData.Speed.InstantSpeed">...</div></label></div>
+										<div class="cell" id="units">km/h&nbsp;</div>	
+										<div class="cell"><label class="fuel"><div class="get" id="CEA.VehicleData.Engine.FuelLevel">...</div></label></div>
+										<div class="cell" id="units"><label>%<i><img src="smartphone/images/icons/fuel_icon.png" style="vertical-align: bottom;" alt="Fuel"></i></label></div>									
+									</div>
+									</a>
+									</li>
+								</div>
+							</ul>							
+						</div>												
+						<input type="submit" id="startTracking" class="buttonShadow" onclick="startTracking();" value="Start">
+						<input type="submit" id="stopTracking" class="buttonShadow" onclick="stopTracking();" value="Stop">												
+						<input type="submit" id="clearTracking" class="buttonShadow" onclick="clearTracking();" value="Clear">												
+						<div class="clear"></div>
+						<div id="map-canvas-mon" class="map-canvas"></div>	
+						<div class="trip_list">
+							<ul id="trip_list_mon">													  	    
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="content" id="anti-theft">
+					<div class="column_right_grid date_events">
+						<h3>ANTI-THEFT</h3>						
+						<div class="table" style="width:95%;padding: 0.3em;">
+							<div class="row">
+								<div class="cell" style="text-align:right;width:50%">DISTANCE</div>
+								<div class="cell" id="distance"><div class="distance">...</div></div>
+								<div class="cell" style="text-align:left" id="units">meters</div>	
+							</div>
+						</div>						
+						<div class="table" style="width:95%">
+							<div class="row">
+								<div class="cell" style="text-align:right;">									
+								</div>
+								<div class="cell" style="vertical-align:middle;float:center;">
+									<div class="row">
+										<div class="cell" style="text-align:right;" id="FRDO">
+											<input class="get" id="CEA.VehicleData.Bodywork.FrontRightDoorOpen" onchange="updateBooleanColor('FRDO','green','red')" value="FRDO" type="hidden">
+										</div>
+										<div class="cell" style="text-align:right;" id="RRDO">
+											<input class="get" id="CEA.VehicleData.Bodywork.RearRightDoorOpen" onchange="updateBooleanColor('RRDO','green','red')" value="RRDO" type="hidden">
+										</div>
+									</div>
+								</div>
+								<div class="cell" style="text-align:right;">									
+								</div>
+							</div>
+							<div class="row">
+								<div class="cell" style="vertical-align:middle;float:left;" id="HO">
+									<input class="get" id="CEA.VehicleData.Bodywork.HoodOpen" onchange="updateBooleanColor('HO','green','red')" value="HO" type="hidden">
+								</div>
+								<div class="cell" style="text-align:center;vertical-align: middle;"><img src="smartphone/images/9_Parking/image_car.png"></div>
+								<div class="cell" style="vertical-align:middle;float:right;" id="TO">
+									<input class="get" id="CEA.VehicleData.Bodywork.TrunkOpen" onchange="updateBooleanColor('TO','green','red')" value="TO" type="hidden">
+								</div>			
+							</div>
+							<div class="row">
+								<div class="cell" style="text-align:right;">									
+								</div>
+								<div class="cell" style="vertical-align:middle;float:center;">
+									<div class="row">
+										<div class="cell" style="text-align:right;" id="FLDO">
+											<input class="get" id="CEA.VehicleData.Bodywork.FrontLeftDoorOpen" onchange="updateBooleanColor('FLDO','green','red')" value="FLDO" type="hidden">
+										</div>
+										<div class="cell" style="text-align:right;" id="RLDO">
+											<input class="get" id="CEA.VehicleData.Bodywork.RearLeftDoorOpen" onchange="updateBooleanColor('RLDO','green','red')" value="RLDO" type="hidden">
+										</div>
+									</div>
+								</div>
+								<div class="cell" style="text-align:right;">									
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="table" style="width:75%">
+							<div class="row">
+								<div class="cell" style="width:50%;padding-right:5px">ENGINE</div>
+								<div class="cell" style="width:50%" id="ES">
+									<input class="get" id="CEA.VehicleData.Engine.EngineStatus" onchange="updateEngineColor('ES','green','red')" value="ES" type="hidden">
+								</div>
+							</div>
+						</div>
+						<br>
+						<input type="submit" id="startAntiTheft" class="buttonShadow" onclick="startAntiTheft();" value="Start">
+						<input type="submit" id="stopAntiTheft" class="buttonShadow" onclick="stopAntiTheft();" value="Stop">			           
+					</div>	       
+				</div>				
+				<div class="content" id="location">
+					<div class="column_grid date_events">
+						<h3>LOCATION</h3>	
+						<div class="table" style="width:95%;padding: 0.3em;">
+							<div class="row">
+								<div class="cell" style="text-align:right;width:50%">DISTANCE</div>
+								<div class="cell" id="distance"><div class="distance">...</div></div>
+								<div class="cell" style="text-align:left" id="units">meters</div>	
+							</div>
+						</div>
+						<input type="hidden" id="CEA.VehicleData.Navigation.GPS.Current" class="get">						
+						<div class="clear"></div>
+						<div id="map-canvas-loc" class="map-canvas"></div>
+						<div id="CEA.VehicleData.Driving.LampsTurnIndicatorLeftActivated" class="toggle"></div>
+						<div id="CEA.VehicleData.Driving.LampsTurnIndicatorRightActivated" class="toggle"></div>		
+						<input id="blink" type="submit" class="buttonShadow" value="Blink" onclick="blink();">
+						</div>
+					</div>					
+				</div>				
+				<div class="content" id="parking">
+					<div class="column_right_grid date_events">
+						<h3>PARKING</h3>
+						<div class="table" style="width:95%;padding: 0.3em;">
+							<div class="row">
+								<div class="cell" style="text-align:right;width:50%">DISTANCE</div>
+								<div class="cell" id="distance"><div class="distance">...</div></div>
+								<div class="cell" style="text-align:left" id="units">meters</div>	
+							</div>
+						</div>
+						<div class="table" style="width:100%">
+							<div class="row">
+								<div class="cell" style="vertical-align:middle;float:right;">
+									<div class="row">
+										<div class="cell" style="text-align:right;" id="FR">
+										<input class="get" id="CEA.VehicleData.ADAS.ParkingSensorsFrontRightDistance" onchange="updateColor('FR')" value="FR" type="hidden">
+										</div>
+									</div>
+									<div class="row">
+										<div class="cell" style="text-align:right;" id="FM">
+										<input class="get" id="CEA.VehicleData.ADAS.ParkingSensorsFrontMiddleDistance" onchange="updateColor('FM')" value="FM" type="hidden">
+										</div>
+									</div>
+									<div class="row">
+										<div class="cell" style="text-align:right;" id="FL">
+										<input class="get" id="CEA.VehicleData.ADAS.ParkingSensorsFrontLeftDistance" onchange="updateColor('FL')" value="FL" type="hidden">
+										</div>
+									</div>										
+								</div>
+								<div class="cell" style="text-align:center;vertical-align: middle;"><img src="smartphone/images/9_Parking/image_car.png"></div>
+								<div class="cell" style="vertical-align:middle;float:left;">
+									<div class="row">
+										<div class="cell" style="text-align:left;" id="RR">
+										<input class="get" id="CEA.VehicleData.ADAS.ParkingSensorsRearRightDistance" onchange="updateColor('RR')" value="RR" type="hidden">
+										</div>
+									</div>
+									<div class="row">
+										<div class="cell" style="text-align:left;" id="RM">
+										<input class="get" id="CEA.VehicleData.ADAS.ParkingSensorsRearMiddleDistance" onchange="updateColor('RM')" value="RM" type="hidden">
+										</div>
+									</div>
+									<div class="row">
+										<div class="cell" style="text-align:left;" id="RL">
+										<input class="get" id="CEA.VehicleData.ADAS.ParkingSensorsRearLeftDistance" onchange="updateColor('RL')" value="RL" type="hidden">
+										</div>
+									</div>										
+								</div>
+							</div>
+						</div>					
+						<br>
+						<div class="table" style="width:75%">
+							<div class="row">
+								<div class="cell" style="width:40%;padding-right:5px">POSITION LIGHTS </div>
+								<div class="cell" style="width:30%" id="LPO">
+									<input class="get" id="CEA.VehicleData.Driving.LampsPositionOn" onchange="updateBooleanColor('LPO','green','red')" value="LPO" type="hidden">
+								</div>
+							</div>
+						</div>
+						<br>
+						<input type="submit" id="startParking" class="buttonShadow" onclick="startParking();" value="Start">
+						<input type="submit" id="stopParking" class="buttonShadow" onclick="stopParking();" value="Stop">																		
+					</div>	       
+				</div>				
+			</div>
+		</div>
+	</div>  
+	<nav id="menu">
+		<ul>
+			<li style="background: #840d72;"><a href="#" onclick="display('security');"><i><img src="smartphone/images/icons/icons_security/security_icon_menu.png"></i> SECURITY MENU</a></li>
+			<li><a href="index.html"><i><img src="smartphone/images/icons/home_icon.png"></i> Home</a></li>
+	  		<li><a href="#" onclick="display('monitoring');"><i><img src="smartphone/images/icons/icons_security/monitoring_icon.png"></i> Monitoring</a></li>
+	  		<li><a href="#" onclick="display('anti-theft');"><i><img src="smartphone/images/icons/icons_security/antitheft_icon.png"></i> Anti-theft<div class="clear"></div></a></li>
+	  		<li><a href="#" onclick="display('location');"><i><img src="smartphone/images/icons/icons_security/location_icon.png"></i> Location</a></li>
+			<li><a href="#" onclick="display('parking');"><i><img src="smartphone/images/icons/icons_security/parking_icon.png"></i> Parking<div class="clear"></div></a></li>
+		</ul>
+	</nav>	
+<footer></footer>		
+</body>
+</html>
+

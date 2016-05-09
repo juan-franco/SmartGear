@@ -1,0 +1,22 @@
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes.dex : \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\com\jacea\smartgear\BuildConfig.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\com\jacea\smartgear\R$attr.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\com\jacea\smartgear\R$drawable.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\com\jacea\smartgear\R$string.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\com\jacea\smartgear\R$xml.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\com\jacea\smartgear\R.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\com\jacea\smartgear\SmartGear.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\LocalNotification$1.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\LocalNotification$2.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\LocalNotification$3.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\LocalNotification$4.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\LocalNotification.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\Options.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\Receiver.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\ReceiverActivity.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\de\appplant\cordova\plugin\localnotification\Restore.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\classes\org\apache\cordova\device\Device.class \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\dexedLibs\classes-77abf8ef9475a054304e6d46c276c3dc.jar \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\dexedLibs\CEAChallengeCarSimulatorPlugin-f58e780e197aeb835a93fefbc01ad7e1.jar \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\dexedLibs\android-support-v4-66a54d781cf7a130a411ed140099085b.jar \
+D:\Mis Documentos\27Pulgadas\APPDesign\CEA\SmartGear - TFG\platforms\android\ant-build\dexedLibs\CEAChallengeCommPlugin-794a2ca8199ef43a16a948d645df1c35.jar \

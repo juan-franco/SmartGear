@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="es.cea.common"
+    version="0.1.0-SNAPSHOT">
+	<name>Cea Common Plugin</name>
+    <description>Support common library to be used by other plugins</description>
+    <keywords>cea,aidl</keywords>
+    
+
+     <platform name="android">
+        <source-file src="lib/android/CEAChallengeCommPlugin.jar" target-dir="libs" />
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+              <uses-permission android:name="es.cea.comservice.CEA_COMSERVICE_ACCESS" />
+       </config-file>
+     </platform>
+     
+     
+     <platform name="ios">
+        <source-file src="lib/ios/libCarEasyApps.a" framework="true"/>
+        <header-file src="lib/ios/CEA_Action.h" />
+        <header-file src="lib/ios/CEA_Datatypes.h" />
+        <header-file src="lib/ios/CEA_EndpointFactory.h" />
+		<header-file src="lib/ios/CEA_Presentation.h" />
+		<header-file src="lib/ios/CEA_Protocolos.h" />
+		<header-file src="lib/ios/CEA_RemoteEndpoint.h" />
+        <header-file src="lib/ios/CEA_Session.h" />
+     </platform>
+</plugin>
